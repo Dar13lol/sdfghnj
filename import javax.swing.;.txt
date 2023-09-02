@@ -1,0 +1,198 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Scanner;
+
+public class Contact extends JFrame{
+    JTextField name_pol, age_pol, weight_pol,height_pol,gender_pol;
+    JRadioButton male, female;
+    JCheckBox check;
+
+        public Contact(){
+        super("ЗОЖНИК");
+        super.setBounds(300,200,300,250);
+        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        Container container=super.getContentPane();
+        container.setLayout(new GridLayout(8,2,2,10));
+
+        JLabel name=new JLabel("Введите имя:");
+        name_pol=new JTextField("", 1);
+        JLabel age=new JLabel ("Введите возраст:");
+        age_pol=new JTextField("", 1);
+        JLabel weight=new JLabel ("Введите вес:");
+        weight_pol=new JTextField("", 1);
+        JLabel height=new JLabel ("Введите рост, в см: ");
+        height_pol=new JTextField("", 1);
+        JLabel gender=new JLabel ("Введитите пол: мужской/женский ");
+        gender_pol=new JTextField("", 1);
+        container.add(name);
+        container.add(name_pol);
+        container.add(age);
+        container.add(age_pol);
+        container.add(weight);
+        container.add(weight_pol);
+        container.add(height);
+        container.add(height_pol);
+        container.add(gender);
+        container.add(gender_pol);
+
+
+
+            male=new JRadioButton ("мужской");
+            female=new JRadioButton ("женский");
+
+            double bmr;
+            if (gender.equals ("мужской")) {
+                bmr = (10 * weight + 6.25 * height - 5 * age + 5);
+            } else {
+                bmr = (10 * weight + 6.25 * height - 5 * age - 161);
+            }
+            JCheckBox check =new JCheckBox ("Согласен?",true);
+            JButton send_button=new JButton ("Отправить");
+
+
+            female.setSelected(true); //
+            container.add(male);
+            container.add(female);
+
+// чтобы можно было выбрать либо м либо ж
+            ButtonGroup group=new ButtonGroup ();
+            group.add(male);
+            group.add(female);
+
+            container.add(check);
+            container.add(send_button);
+
+
+
+
+
+
+
+
+        boolean isRunning = true;
+
+        Scanner scanner = null;
+        while (isRunning) {
+            System.out.println("Выберите коэффициент физической активности:");
+            System.out.println("1. Малоподвижный образ жизни");
+            System.out.println("2. Физические нагрузки 2-3 раза в неделю");
+            System.out.println("3. Активные физические нагрузки");
+
+            int choice = scanner.nextInt();
+
+double cal,res;
+            switch (choice) {
+                case 1:
+                    cal = bmr * 1.5;
+                    break;
+                case 2:
+                   cal =bmr*1.75;
+                    break;
+                case 3:
+                   cal =  bmr*2;
+                    break;
+                default:
+                    System.out.println("Неверный выбор. Попробуйте снова.");
+                    break;
+            }
+        }
+        scanner.close();
+
+
+        Scanner scanner1 = null;
+        while (isRunning) {
+            System.out.println("Выберите цель:");
+            System.out.println("1. Похудение");
+            System.out.println("2. Поддержание веса");
+            System.out.println("3. Набор веса");
+
+            int choice1 = scanner1.nextInt();
+double res;
+
+
+
+
+    switch (choice1) {
+                case 1:
+                    res=cal-600;
+                    break;
+                case 2:
+                    res=*1;
+                    break;
+                case 3:
+                    res=cal+0.15*cal;
+                    break;
+                default:
+                    System.out.println("Неверный выбор. Попробуйте снова.");
+                    break;
+            }
+        }
+
+        scanner1.close();
+
+
+
+
+
+        System.out.println("Приложение завершено.");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// чтобы можно было выбрать либо м либо ж
+
+
+// чтобы кнопка отправляла обработка
+        send_button.addActionListener(new HEALTH.Contact.Button());
+// при нажатии
+
+    }
+
+    public void setVisible(boolean b) {
+
+    }
+// Внутри класса не конструктора
+
+    class Button implements ActionListener {//интерфейс
+        @Override
+        public void actionPerformed (ActionEvent e){
+            String name =name_pol.getText();
+            String age=age_pol.getText();
+            String weight=weight_pol.getText();
+            String rost=height_pol.getText();
+
+
+            String isMale="женский";
+            if(!male.isSelected())
+                isMale= "мужской";
+
+
+            boolean checkBox= check.isSelected();
+
+            JOptionPane.showMessageDialog(null, "Результат"+ checkBox,"Привет, "+ name, JOptionPane.PLAIN_MESSAGE);
+
+
+
+        }
+    }
+
+}
+
+
+
+
+
